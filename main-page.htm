@@ -1,138 +1,224 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bubble Navigation</title>
+    <title>Main Page</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             background-color: #f5e7b6; /* Warm cream background */
             font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .bubble {
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -1px -1px 3px rgba(255, 255, 255, 0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
-            overflow: hidden;
-            background-color: #e4926e; /* Retro orange */
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .bubble:hover {
-            transform: scale(1.05);
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.9);
-        }
-
-        .main-bubble {
-            width: 300px;
-            height: 300px;
-            background-color: #c03a2b; /* Deeper red */
-            z-index: 10;
             flex-direction: column;
-            padding: 20px;
-            text-align: center;
-            font-size: 16px;
+            align-items: center;
+            justify-content: center;
         }
 
-        .main-bubble-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+        .container {
             width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            width: 100%;
+            height: 66vh;
+            min-height: 450px;
+            background-color: #c03a2b; /* Deeper red */
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .dates {
+            width: 100%;
+            color: #fffcf2;
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .pikachu-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
         }
 
         .pikachu-img {
-            width: 150px;
-            height: 150px;
-            margin: 10px auto;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             background-color: #fdcd3b;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .dates {
-            margin-bottom: 10px;
-            color: #fffcf2;
+        .quote-container {
+            width: 100%;
+            background-color: #fffcf2;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .quote {
+            color: #333;
+            text-align: center;
+        }
+
+        .quote-english {
             font-style: italic;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .quote-chinese {
             font-size: 14px;
-            color: #fffcf2;
+            color: #555;
+            margin-top: 8px;
+        }
+
+        .button-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             margin-top: 10px;
-            padding: 5px;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
         }
 
-        .small-bubble {
+        .link-button {
             width: 100px;
-            height: 100px;
-            background-color: #5e9ca3; /* Teal */
-            font-size: 18px;
+            height: 45px;
+            border-radius: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
             color: #fffcf2;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        /* Unique colors for each satellite bubble */
-        .small-bubble:nth-child(2) { background-color: #5e9ca3; } /* Teal */
-        .small-bubble:nth-child(3) { background-color: #7a97b9; } /* Blue */
-        .small-bubble:nth-child(4) { background-color: #b086a8; } /* Purple */
-        .small-bubble:nth-child(5) { background-color: #d68189; } /* Pink */
-        .small-bubble:nth-child(6) { background-color: #e4c26e; } /* Yellow */
-        .small-bubble:nth-child(7) { background-color: #85a677; } /* Green */
+        .link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Japanese retro style colors for buttons */
+        .button-1 { background-color: #5e9ca3; } /* Teal */
+        .button-2 { background-color: #7a97b9; } /* Blue */
+        .button-3 { background-color: #b086a8; } /* Purple */
+        .button-4 { background-color: #d68189; } /* Pink */
+        .button-5 { background-color: #e4c26e; } /* Yellow */
+        .button-6 { background-color: #85a677; } /* Green */
+        /* Additional colors for new buttons */
+        .button-7 { background-color: #d35400; } /* Burnt Orange */
+        .button-8 { background-color: #8e44ad; } /* Deep Purple */
+        .button-9 { background-color: #2c3e50; } /* Dark Blue */
+        .button-10 { background-color: #16a085; } /* Emerald Green */
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-content {
+                height: auto;
+                min-height: 0;
+                padding: 20px 15px;
+            }
+            
+            .dates {
+                font-size: 16px;
+            }
+            
+            .pikachu-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .quote-english {
+                font-size: 14px;
+            }
+            
+            .quote-chinese {
+                font-size: 12px;
+            }
+            
+            .button-container {
+                gap: 10px;
+            }
+            
+            .link-button {
+                width: 85px;
+                height: 40px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Main bubble -->
-    <div class="bubble main-bubble">
-        <div class="main-bubble-content">
+    <div class="container">
+        <!-- Main content section (2/3 of page) -->
+        <div class="main-content">
+            <!-- Date information -->
             <div class="dates" id="dates">
                 <!-- Date info will be loaded via JavaScript -->
             </div>
             
-            <div class="pikachu-img">
-                <img src="sloth_transparent.png" alt="Pikachu" style="width: 100%; height: 100%; object-fit: cover;">
+            <!-- Pikachu image -->
+            <div class="pikachu-container">
+                <div class="pikachu-img">
+                    <img src="sloth_transparent.png" alt="Pikachu" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
             </div>
             
-            <div class="quote" id="quote">
-                <!-- Quote will be loaded via JavaScript -->
+            <!-- Quote of the day -->
+            <div class="quote-container">
+                <div class="quote" id="quote">
+                    <!-- Quote will be loaded via JavaScript -->
+                </div>
             </div>
         </div>
+        
+        <!-- Button links section -->
+        <div class="button-container">
+            <a href="https://claude.ai" class="link-button button-1">Link 1</a>
+            <a href="https://claude.ai" class="link-button button-2">Link 2</a>
+            <a href="https://claude.ai" class="link-button button-3">Link 3</a>
+            <a href="https://claude.ai" class="link-button button-4">Link 4</a>
+            <a href="https://claude.ai" class="link-button button-5">Link 5</a>
+            <a href="https://claude.ai" class="link-button button-6">Link 6</a>
+            <a href="https://claude.ai" class="link-button button-7">Link 7</a>
+            <a href="https://claude.ai" class="link-button button-8">Link 8</a>
+            <a href="https://claude.ai" class="link-button button-9">Link 9</a>
+            <a href="https://claude.ai" class="link-button button-10">Link 10</a>
+        </div>
     </div>
-    
-    <!-- Surrounding bubbles -->
-    <a href="https://claude.ai" class="bubble small-bubble" style="top: 15%; left: 30%;">Link</a>
-    <a href="https://claude.ai" class="bubble small-bubble" style="top: 15%; right: 30%;">Link</a>
-    <a href="https://claude.ai" class="bubble small-bubble" style="top: 40%; right: 15%;">Link</a>
-    <a href="https://claude.ai" class="bubble small-bubble" style="bottom: 15%; right: 30%;">Link</a>
-    <a href="https://claude.ai" class="bubble small-bubble" style="bottom: 15%; left: 30%;">Link</a>
-    <a href="https://claude.ai" class="bubble small-bubble" style="top: 40%; left: 15%;">Link</a>
 
     <script>
         // Function to update dates and countdown
         function updateDates() {
-            // Get current date in Taiwan time
+            // Get current date and time in Taiwan time
+            const now = new Date();
             const options = { 
                 timeZone: 'Asia/Taipei',
                 year: 'numeric', 
@@ -140,55 +226,99 @@
                 day: 'numeric',
                 weekday: 'long'
             };
-            const taiwanDate = new Date().toLocaleDateString('zh-TW', options);
             
+          
+            
+            const taiwanDate = now.toLocaleDateString('en-US', options);
+           
             // Calculate days until midterm (May 12, 2025)
-            const today = new Date();
             const midtermDate = new Date('2025-05-12T00:00:00+08:00');
-            const midtermDiff = Math.ceil((midtermDate - today) / (1000 * 60 * 60 * 24));
+            const midtermDiff = Math.ceil((midtermDate - now) / (1000 * 60 * 60 * 24));
             
             // Calculate days until 學測 (January 16, 2027)
             const examDate = new Date('2027-01-16T00:00:00+08:00');
-            const examDiff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+            const examDiff = Math.ceil((examDate - now) / (1000 * 60 * 60 * 24));
             
             // Update the dates div
             document.getElementById('dates').innerHTML = `
-                ${taiwanDate}<br>
-                距離段考還有 ${midtermDiff} 天<br>
-                距離116年學測還有 ${examDiff} 天
+                📅 ${taiwanDate}<br>
+                ⏰ ${midtermDiff} days until 段考<br>
+                📚 ${examDiff} days until 116年學測
             `;
         }
         
-        // Array of quotes
+        // Array of quotes with titles and Chinese translations
         const quotes = [
-            "The journey of a thousand miles begins with a single step. - Lao Tzu",
-            "Education is the most powerful weapon which you can use to change the world. - Nelson Mandela",
-            "The beautiful thing about learning is that no one can take it away from you. - B.B. King",
-            "The more that you read, the more things you will know. The more that you learn, the more places you'll go. - Dr. Seuss",
-            "Learning is a treasure that will follow its owner everywhere. - Chinese Proverb",
-            "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
-            "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt"
+            {
+                english: "The journey of a thousand miles begins with a single step.",
+                author: "Lao Tzu",
+                title: "Chinese Philosopher",
+                chinese: "千里之行，始於足下。 - 老子（中國哲學家）"
+            },
+            {
+                english: "Education is the most powerful weapon which you can use to change the world.",
+                author: "Nelson Mandela",
+                title: "South African President",
+                chinese: "教育是改變世界的最強大武器。 - 納爾遜·曼德拉（南非總統）"
+            },
+            {
+                english: "The beautiful thing about learning is that no one can take it away from you.",
+                author: "B.B. King",
+                title: "Blues Musician",
+                chinese: "學習的美妙之處在於沒有人能把它從你身上奪走。 - B.B. 金（藍調音樂家）"
+            },
+            {
+                english: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
+                author: "Dr. Seuss",
+                title: "Children's Author",
+                chinese: "你讀得越多，你知道的事情就越多。你學得越多，你去的地方就越多。 - 蘇斯博士（兒童作家）"
+            },
+            {
+                english: "Learning is a treasure that will follow its owner everywhere.",
+                author: "Chinese Proverb",
+                title: "Folk Wisdom",
+                chinese: "學習是跟隨所有者到處走的寶藏。 - 中國諺語（民間智慧）"
+            },
+            {
+                english: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+                author: "Winston Churchill",
+                title: "British Prime Minister",
+                chinese: "成功不是終點，失敗也不是致命的：重要的是繼續前進的勇氣。 - 溫斯頓·邱吉爾（英國首相）"
+            },
+            {
+                english: "The only limit to our realization of tomorrow will be our doubts of today.",
+                author: "Franklin D. Roosevelt",
+                title: "U.S. President",
+                chinese: "實現明天的唯一限制是今天的疑慮。 - 富蘭克林·羅斯福（美國總統）"
+            }
         ];
         
         // Function to display a random quote
         function displayRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('quote').textContent = quotes[randomIndex];
+            const quoteObj = quotes[randomIndex];
+            
+            document.getElementById('quote').innerHTML = `
+                <div class="quote-english">${quoteObj.english} - ${quoteObj.author} (${quoteObj.title})</div>
+                <div class="quote-chinese">${quoteObj.chinese}</div>
+            `;
         }
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateDates();
             displayRandomQuote();
+            
+            // Update time every second
+            setInterval(updateDates, 1000);
         });
         
-        // Update dates and quote once a day (checking every hour)
+        // Update quote once a day (checking every hour)
         let lastDate = new Date().getDate();
         setInterval(() => {
             const currentDate = new Date().getDate();
             if (currentDate !== lastDate) {
                 lastDate = currentDate;
-                updateDates();
                 displayRandomQuote();
             }
         }, 3600000); // Check every hour (3600000 ms)
